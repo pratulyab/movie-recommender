@@ -1,0 +1,36 @@
+- INSTALLING PACKAGES
+
+pip3 install -r requirements.txt
+
+
+
+- MYSQL DATABASE
+	- START MYSQL CLIENT
+		mysql -uroot -hlocalhost -p
+		<Enter Password>
+
+	- CREATING DATABASE
+		create database movie;
+	
+	- DELETING DATABASEE
+		drop database movie;
+
+	- EXITING MYSQL CLIENT
+		exit
+
+
+
+- DJANGO INITIALIZATION
+	- if your database password is not blank string, then
+		- go to recommender/settings.py.
+		- search for "PASSWORD"
+		- Enter your password in quotes
+
+	- python3 manage.py makemigrations
+	- python3 manage.py migrate
+
+
+
+- DUMPING DATASET TO DATABASE
+	<cd into the recommender folder (the one containing manage.py)>
+	python3 dump_dataset.py
