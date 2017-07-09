@@ -8,7 +8,8 @@ from movie.models import Genre, Movie
 from rating.models import DatasetRating
 from decimal import Decimal
 
-DATASET_DIR = '/Users/Pratulya/Desktop/tcs/ml-latest-small/'
+DATASET_DIR = '../ml-latest-small/'
+#DATASET_DIR = '/Users/Pratulya/Desktop/tcs/ml-latest-small/'
 
 print('--------------- READING DATASETS ----------------')
 
