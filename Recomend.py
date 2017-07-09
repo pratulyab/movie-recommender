@@ -4,7 +4,7 @@ from collections import OrderedDict
 
 print ("Lets do this")
 
-movies_df = pd.read_csv('/home/prafful/Desktop/ml-latest-small/movies.csv', header=None, names=['movie_id', 'movie_title', 'movie_genre'])
+movies_df = pd.read_csv('ml-latest-small/movies.csv', header=None, names=['movie_id', 'movie_title', 'movie_genre'])
 movies_df = pd.concat([movies_df, movies_df.movie_genre.str.get_dummies(sep='|')], axis=1)  
 '''
 print("Enter the movie name")
