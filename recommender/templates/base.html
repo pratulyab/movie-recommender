@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	{% load staticfiles %}
+	<head>
+		<title>
+			{% block title %}{% endblock title %}
+		</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+		<link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">
+		<!--<link href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" rel="stylesheet">-->
+		<style> a:hover{color: lightcoral; font-weight: bold;}</style>
+		{% block head %}{% endblock head %}
+	</head>
+	<body>
+		<header>
+			{% block header %}{% endblock header %}
+		</header>
+		<main>
+			{% block content %}{% endblock content %}
+		</main>
+		<footer>
+			{% block footer %}{% endblock footer %}
+		</footer>
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+		{% block scripts %}{% endblock scripts %}
+	</body>
+</html>

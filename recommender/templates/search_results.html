@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Search Results | Movie Recommender{% endblock %}
+
+{% block content %}
+<div class="row">
+	{% if movies %}
+		<p class="center pink-text text-darken-2 flow-text">
+			{{ movies|length }} results matching your query were found. <i class="fa fa-smile-o blue-text" aria-hidden="true"></i>
+		</p>
+		<table class="striped col flow-text s10 offset-s1">
+			<thead class="teal lighten-5">
+				<tr>
+					<th>S.No.</th>
+					<th>Name</th>
+					<th>Genre</th>
+					<th>Avg. Rating</th>
+					<th>Link</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for movie in movies %}
+				<tr>
+					<td>{{ forloop.counter }}.</td>
+					<td><a href="{{ movie.get_absolute_url }}">{{ movie.display_name }}<!--&emsp;<i class="fa fa-link"></i>--></a></td>
+					<td>{{ movie.genres.all|join:", " }}</td>
+					<td>{{ movie.mean_rating|floatformat }}</td>
+					<td><a href="{{ movie.get_absolute_url }}"><i class="fa fa-link fa-2x" aria-hidden="true"></a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else %}	
+		<div class="col s10 offset-s1 center">
+			<p class="pink-text text-darken-2 flow-text">Sorry, no results matching your query were found. <i class="fa fa-frown-o blue-text"></i></p>
+		</div>
+	{% endif %}
+</div>
+
+<!--
+	<div class="col s10 offset-s1" id="movie-data">
+		<h2 class="blue lighten-5 blue-text text-darken-3 center">{{ movie.display_name }}</h2>
+		<ul class="flow-text">
+			<li><b>Genres:</b> {% for genre in movie.genres.all %}{{ genre }},{% endfor %}</li>
+			<li><b>Average Rating:</b> {{ movie.mean_rating|floatformat }}</li>
+			<li><a target="_blank" href="{{ movie.imdb_url }}">Internet Movie Database</a></li>
+			<li><a target="_blank" href="{{ movie.tmdb_url }}">The Movie Database</a></li>
+			<li><a target="_blank" href="{{ movie.movielens_url }}">Movielens</a></li>
+		</ul>
+	</div>
+	<div class="col s12 divider"></div>
+	<div class="col s10 offset-s1" id="recommendations">
+		<h3 class="teal lighten-5 center teal-text text-darken-3">You Might Also Like</h3>
+		{% for recommended_movie in recommendations %}
+			<h4 class="flow-text">{{ forloop.counter }}) <a href="{{ recommended_movie.get_absolute_url }}">{{ recommended_movie.display_name}}</a></h4>
+		{% endfor %}
+	</div>
+-->
+{% endblock %}
