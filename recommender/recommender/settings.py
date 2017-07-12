@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'movie',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'password',
         'PORT': 3306,
         'OPTIONS': {'charset': 'utf8mb4'}
     }
