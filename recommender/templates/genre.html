@@ -1,5 +1,10 @@
+
 <div class="col s12 divider"></div>
-<h3 class="pink lighten-5 flow-text center purple-text text-darken-3">Recommendations</h3>
+<div clas = 'row'>
+<h2 class="pink lighten-5 flow-text center-align purple-text text-darken-3">Recommendations</h2>
+</div>
 {% for recommended_movie in recommendations %}
-	<h4 class="flow-text">{{ forloop.counter }}) <a href="{{ recommended_movie.get_absolute_url }}">{{ recommended_movie.display_name}}</a></h4>
+	<ul class="collection">
+	<h5 class="flow-text"> <li class="collection-item">{{forloop.counter }}) <a href="{{ recommended_movie.get_absolute_url }}">{{ recommended_movie.display_name}}</a></li></h5>
+	</ul>
 {% endfor %}

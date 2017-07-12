@@ -1,6 +1,22 @@
 {% extends 'base.html' %}
 {% block title %}Search Results | Movie Recommender{% endblock %}
 
+{% block header %}
+<nav>
+	<div class="nav-wrapper row cyan">
+		<form class="col s12 m10 offset-m1 l8 offset-l2" action="{% url 'search' %}" method="GET" id="search-form" style="position: relative">
+			<div class="input-field">
+				<input id="search" name="query" type="search" placeholder="Search Movies..." required>
+				<label class="label-icon" for="search"><i class="fa fa-2x fa-search" aria-hidden="true"></i></label>
+			</div>
+			<div class="col s12 divider"></div>
+			<div class="col s12 light-blue darken-2" style="z-index: 1; position: absolute; max-height: 450px; overflow-y: scroll; display: none;" id="search-results"></div>
+		</form>
+	</div>
+</nav>
+{% endblock %}
+
+
 {% block content %}
 <div class="row">
 	{% if movies %}
@@ -20,11 +36,11 @@
 			<tbody>
 				{% for movie in movies %}
 				<tr>
-					<td>{{ forloop.counter }}.</td>
-					<td><a href="{{ movie.get_absolute_url }}">{{ movie.display_name }}<!--&emsp;<i class="fa fa-link"></i>--></a></td>
-					<td>{{ movie.genres.all|join:", " }}</td>
-					<td>{{ movie.mean_rating|floatformat }}</td>
-					<td><a href="{{ movie.get_absolute_url }}"><i class="fa fa-link fa-2x" aria-hidden="true"></a></td>
+					<td class="SFTest">{{ forloop.counter }}.</td>
+					<td class="SFTest"><a href="{{ movie.get_absolute_url }}">{{ movie.display_name }}<!--&emsp;<i class="fa fa-link"></i>--></a></td>
+					<td class="SFTest">{{ movie.genres.all|join:", " }}</td>
+					<td class="SFTest">{{ movie.mean_rating|floatformat }}</td>
+					<td class="SFTest"><a href="{{ movie.get_absolute_url }}"><i class="fa fa-link fa-2x" aria-hidden="true"></a></td>
 				</tr>
 				{% endfor %}
 			</tbody>
@@ -56,3 +72,19 @@
 	</div>
 -->
 {% endblock %}
+
+
+
+<script>
+var options = [
+      {selector: ".SFTest", offset: 400, callback: function(el) {
+        Materialize.showStaggeredList($(el));
+      }}
+      ];
+Materialize.scrollFire(options);	
+
+
+
+
+
+</script>
