@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}{{ movie.display_name }} | Movie Recommender{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col s10 offset-s1" id="movie-data">
+		<h2 class="teal lighten-5 blue-text text-darken-3 center">{{ movie.display_name }}</h2>
+		<ul class="flow-text">
+			<li><b>Genres:</b>{{ movie.genres.all|join:", " }}</li>
+			<li><b>Average Rating:</b> {{ movie.mean_rating|floatformat }}</li>
+			<li><a target="_blank" href="{{ movie.imdb_url }}">Internet Movie Database&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></li>
+			<li><a target="_blank" href="{{ movie.tmdb_url }}">The Movie Database&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></li>
+			<li><a target="_blank" href="{{ movie.movielens_url }}">Movielens&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></li>
+		</ul>
+	</div>
+	<div class="col s12 divider"></div>
+	<div class="col s10 offset-s1" id="recommendations">
+		<h3 class="pink lighten-5 center purple-text text-darken-3">You Might Also Like</h3>
+		{% for recommended_movie in recommendations %}
+			<h4 class="flow-text">{{ forloop.counter }}) <a href="{{ recommended_movie.get_absolute_url }}">{{ recommended_movie.display_name}}</a></h4>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

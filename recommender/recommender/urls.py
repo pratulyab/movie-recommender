@@ -16,7 +16,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from movie.views import *
 
 urlpatterns = [
+	url(r'^$', landing, name='landing'),
     url(r'^admin/', admin.site.urls),
+	url(r'^genre/$', genre_based_recommendations, name='genre'),
+	url(r'^movie/(?P<uuid>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/$', movie, name='movie'),
+	url(r'^search/$', search, name='search'),
 ]

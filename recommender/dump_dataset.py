@@ -1,12 +1,14 @@
 ''' Script to dump movielens dataset to database '''
 
 import pandas as pd
-import os, sys, django
+import os, sys, django, re
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "recommender.settings")
 django.setup()
 from movie.models import Genre, Movie
 from rating.models import DatasetRating
 from decimal import Decimal
+
+year_pattern = re.compile(r'\s*\((\d{4})\)\s*')
 
 DATASET_DIR = '../ml-latest-small/'
 #DATASET_DIR = '/Users/Pratulya/Desktop/tcs/ml-latest-small/'
@@ -46,18 +48,47 @@ merged_grouped = merged_df.groupby('movieId')
 
 print('--------------- GO GRAB A SNACK ----------------')
 
+def clean_movie_name(name):
+	try:
+		year = year_pattern.search(name).groups()[0]
+	except:
+		year = ''
+	name = year_pattern.sub('', name)
+	parts = name.split(',')
+	cleaned_name = ''
+	if len(parts) == 2:
+		second_part = parts[1].strip()
+		starting = second_part.split(' ')[0]
+		try:
+			bracket_text_pattern = r'(\s*\(.+\)\s*)'
+			any_bracket_text = re.search(bracket_text_pattern, second_part).groups()[0].strip()
+		except:
+			any_bracket_text = ''
+		# Then checking for the possibility of second part being 'A' or 'The'
+		if starting in ['A', 'An', 'The']:
+			cleaned_name = ' '.join([starting, parts[0], any_bracket_text])
+		else:
+			if any_bracket_text in starting:
+				cleaned_name = ' '.join([parts[0], starting])
+			else:
+				cleaned_name = ' '.join([parts[0], starting, any_bracket_text])
+	else:
+		cleaned_name = name
+	return (cleaned_name.strip(), year)
+
 # Create objects
 for index in merged_grouped.indices:
 	try:
 		group = merged_grouped.get_group(index)
 		movielensID = int(group['movieId'].values[0])
 		name = str(group['title'].values[0])
+		name, year = clean_movie_name(name)
 		imdbID = str(group['imdbId'].values[0])
 		tmdbID = str(group['tmdbId'].values[0])
 		genres = group['genres'][group.first_valid_index()] # To get list; otherwise group['genres'] is pd.Series
 		mean_rating = float(group['rating'].mean())
 	# Creating movie
-		movie = Movie.objects.create(name=name, imdbID=imdbID, tmdbID=tmdbID, movielensID=movielensID, mean_rating=Decimal(mean_rating))
+		movie = Movie.objects.create(name=name, year=year, imdbID=imdbID, tmdbID=tmdbID, movielensID=movielensID, mean_rating=Decimal(mean_rating))
 	# # #
 	# Adding genres
 		for genre in genres:
