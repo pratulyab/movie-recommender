@@ -8,7 +8,15 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
 		<link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">
 		<!--<link href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" rel="stylesheet">-->
-		<style> a:hover{color: lightcoral; font-weight: bold;}</style>
+		<style>
+			a:hover{color: lightcoral; font-weight: bold;}
+			input[type=search]:not(.browser-default):focus:not([readonly]) {
+				border-bottom: 1px solid #40c4ff !important; box-shadow: 0 1px 0 0 #40c4ff !important;
+			}
+			.dropdown-content li>span {
+				color: #0d47a1;
+			}
+		</style>
 		{% block head %}{% endblock head %}
 	</head>
 	<body>

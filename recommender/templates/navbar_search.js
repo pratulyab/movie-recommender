@@ -1,69 +1,3 @@
-{% extends 'base.html' %}
-{% block title %}Movie Recommender | Movielens Dataset{% endblock %}
-
-{% block head %}
-<style>
-	.indicator {background-color: #40c4ff !important}
-	.tabs .tab a:hover, .tabs .tab a.active, .tabs .tab a {color: #0d47a1 !important; font-size: 16px;}
-</style>
-{% endblock %}
-
-{% block header %}
-<nav>
-    <div class="nav-wrapper blue-grey darken-4">
-      <a href="/" class="brand-logo center">Recommend It!</a>
-      </ul>
-    </div>
-  </nav>
-        
-
-{% endblock %}
-
-{% block content %}
-
-<div class="row">
-    <div class="col s12 blue lighten-5">
-      <ul class="tabs blue lighten-5">
-        <li class="tab col s3 m4 l6"><a class="active" href="#nameSearch">Search by Name</a></li>
-        <li class="tab col s3 m4 l6"><a href="#GSearch">Recommend by Genres</a></li>
-        </ul>
-    </div>
-    <div id="nameSearch" class="col s12" style="margin-top:50px">
-
-        <div class="row">
-            <form class="col s12 m10 offset-m1 l8 offset-l2" action="{% url 'search' %}" method="GET" id="search-form" style="position: relative">
-            <div class="input-field">
-              <input id="search" name="query" type="search" placeholder="Search Movies..." required>
-              <label class="label-icon" for="search"><i class="fa fa-2x fa-search" aria-hidden="true"></i></label>
-            </div>
-			<div class="col s12 teal-text flow-text grey lighten-5" style="z-index: 1; position: absolute; max-height: 450px; overflow-y: scroll; display: none;" id="search-results"></div>
-          </form>
-        </div>
-    </div>
-    
-  
-  <div id="GSearch" class="col s12" style="margin-top:50px;">
-    
-    <div class="col s10 offset-s1" id="genre-form-div">
-    <h5 class="center-align grey lighten-5 flow-text">Genre Based Recommendations</h5>
-    <form class="col s12" id="genre-form" action="{% url 'genre' %}" method="POST">
-      {% csrf_token %}
-      {{ genre_form.as_p }}
-      <div class="row">
-        <button style="background-color: #3785c7" class="col s10 offset-s1 btn btn-waves" type="submit">Recommend Movies <i class="fa fa-smile-o"></i></button>
-      </div>
-    </form>
-      <div class="col s10 offset-s1" id="genre-preloader"></div>
-      <div class="col s10 offset-s1" id="genre-recommendations"></div>
-    </div>
-  </div>
-</div>
-    
-
-
-{% endblock %}
-
-{% block scripts %}
 <script>
 
 $(document).ready(function(){
@@ -73,6 +7,7 @@ $(document).ready(function(){
 	var doneTypingInterval = 300;
 	var $input = $('#search');
 	var $results = $('#search-results');
+	var a_mousedown = false;
 
 	//on keyup, start the countdown
 	$input.on('keyup', function () {
@@ -86,8 +21,12 @@ $(document).ready(function(){
 	});
 
 	$input.on('blur', function(e) {
-//		$results.css("display", "none");
+		if (!a_mousedown)
+			$results.css("display", "none");
+		else
+			a_mousedown = false;
 	});
+
 
 	$input.on('focus', function() {
 		$results.css("display", "block");
@@ -118,13 +57,14 @@ $(document).ready(function(){
 					var $ul = $('<ul class="col s12 teal-text"/>');
 					for (var each of data.result) {
 						var $li = $('<li class="col s12"/>'),
-							$a = $('<a/>');
+							$a = $('<a class="result-link"/>');
 						$a.attr('href', each.url);
 						$a.text(each.name);
 						$ul.append($li.append($a));
 					}
 					$results.empty();
 					$results.append($ul);
+					$('.result-link').mousedown(function(e){a_mousedown=true;});
 				}
 				$results.css("display", "block");
 			},
@@ -169,4 +109,4 @@ $(document).ready(function(){
 	});
 });
 </script>
-{% endblock %}
+
