@@ -34,8 +34,9 @@ class Movie(models.Model):
 	recommendations = models.TextField(validators=[validate_comma_separated_integer_list], blank=True) # Store movielensID
 
 # Stats
-#	mean_rating = models.DecimalField('Average Rating', max_digits=8, decimal_places=7, default=Decimal(0),\
-#				validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(5))])
+	mean_rating = models.DecimalField('Average Rating', max_digits=8, decimal_places=7, default=Decimal(0),\
+				validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(5))])
+	total_ratings = models.PositiveIntegerField(default=0)
 	popularity = models.DecimalField('Popularity', max_digits=8, decimal_places=6, default=Decimal(0))
 	total_visits = models.PositiveIntegerField(default=0) # Updated when feedback script is run
 	visits = models.PositiveIntegerField(default=0) # Page visits - Cleared when feedback script is run - Updated on every visit
