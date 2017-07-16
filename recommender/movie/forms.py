@@ -1,10 +1,11 @@
 from django import forms
 from movie.models import Genre, Movie
+from genre_recommender import get_movie_recommendations
 
 class GenreForm(forms.Form):
-	genre1 = forms.CharField(label="Priority 1", max_length=20, required=False)
-	genre2 = forms.CharField(label="Priority 2", max_length=20, required=False)
-	genre3 = forms.CharField(label="Priority 3", max_length=20, required=False)
+	genre1 = forms.CharField(label="Preference 1", max_length=20, required=False)
+	genre2 = forms.CharField(label="Preference 2", max_length=20, required=False)
+	genre3 = forms.CharField(label="Preference 3", max_length=20, required=False)
 
 	def __init__(self, *args, **kwargs):
 		super(GenreForm, self).__init__(*args, **kwargs)
@@ -21,7 +22,8 @@ class GenreForm(forms.Form):
 		return self.cleaned_data
 	'''
 	def get_recommendations(self, n=5):
-		return Movie.objects.all()[:n]
+		genres = Genre.objects.filter(pk__in=[int(self.cleaned_data['genre1']), int(self.cleaned_data['genre2']), int(self.cleaned_data['genre3'])])
+		return Movie.objects.filter(movielensID__in=get_movie_recommendations(genres, n)).order_by('-popularity')
 
 	@staticmethod
 	def get_choices():

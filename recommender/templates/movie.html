@@ -36,6 +36,8 @@
 		<h3 class="pink lighten-5 center purple-text text-darken-3">You Might Also Like</h3>
 		{% for recommended_movie in recommendations %}
 			<h4 class="flow-text">{{ forloop.counter }}) <a href="{{ recommended_movie.get_absolute_url }}">{{ recommended_movie.display_name}}</a></h4>
+		{% empty %}
+			<h5 class="flow-text blue-text">Sorry, we have no recommendations to show for {{ movie.display_name }}<i class="fa fa-frown-o"></i>. Try with some other movie.</h5>
 		{% endfor %}
 	</div>
 </div>

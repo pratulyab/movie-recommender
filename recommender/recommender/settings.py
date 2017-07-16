@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from movie_recommender import get_or_create_pickle, MOVIE_GENRE_SEP_PKL, MOVIE_POPULARITY_PKL
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -84,7 +85,7 @@ DATABASES = {
         'NAME': 'movie',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': 'password',
+        'PASSWORD': '',
         'PORT': 3306,
         'OPTIONS': {'charset': 'utf8mb4'}
     }
@@ -128,3 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Pickle
+MOVIE_GENRE_SEP_DF = get_or_create_pickle(MOVIE_GENRE_SEP_PKL)
+MOVIE_POPULARITY_DF = get_or_create_pickle(MOVIE_POPULARITY_PKL)

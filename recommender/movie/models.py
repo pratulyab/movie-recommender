@@ -28,13 +28,17 @@ class Movie(models.Model):
 
 # M2Ms
 	genres = models.ManyToManyField(Genre, related_name="movies")
-	recommendations = models.ManyToManyField("self", related_name="recommended_for", symmetrical=True, blank=True) # To store a few handy
-	''' symm is true because if A can be recommended for B, then vice-versa could also be valid '''
+	''' Not using M2M Field because free servers are slow while dumping data.'''
+#	recommendations = models.ManyToManyField("self", related_name="recommended_for", symmetrical=False, blank=True) # To store a few handy
+#	''' symm is false because a cult movie may be recommended for a mediocre considering popularity, but reverse may or may not '''
+	recommendations = models.TextField(validators=[validate_comma_separated_integer_list], blank=True) # Store movielensID
 
 # Stats
-	mean_rating = models.DecimalField('Average Rating', max_digits=8, decimal_places=7, default=Decimal(0),\
-				validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(5))])
-	visits = models.PositiveIntegerField(default=0) # Page visits
+#	mean_rating = models.DecimalField('Average Rating', max_digits=8, decimal_places=7, default=Decimal(0),\
+#				validators=[MinValueValidator(Decimal(0)), MaxValueValidator(Decimal(5))])
+	popularity = models.DecimalField('Popularity', max_digits=8, decimal_places=6, default=Decimal(0))
+	total_visits = models.PositiveIntegerField(default=0) # Updated when feedback script is run
+	visits = models.PositiveIntegerField(default=0) # Page visits - Cleared when feedback script is run - Updated on every visit
 	outbounds = models.TextField(validators=[validate_comma_separated_integer_list], blank=True)
 	''' outbounds field stores movielensID of movies that users followed from this movie's recommendations '''
 
@@ -51,13 +55,14 @@ class Movie(models.Model):
 		return reverse('movie', kwargs={'uuid': str(self.uuid)})
 
 	def get_recommendations(self, n=5):
-		return Movie.objects.all()[:n]
+		recommendations = Movie.objects.filter(movielensID__in=self.recommendations.split(',')).order_by('-popularity')[:n]
+		return recommendations
 
 	def display_name(self):
 		return self.__str__()
 
 	def __str__(self):
-		return "{} ({})".format(self.name, self.year)
+		return ("{} ({})".format(self.name, self.year) if self.year else self.name)
 
 	class Meta:
 		unique_together = ['name', 'year']

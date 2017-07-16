@@ -17,6 +17,7 @@ def landing(request):
 @require_GET
 def search(request):
 	query = request.GET.get('query')
+	query = query.replace('+', ' ')
 	if not query:
 		if request.is_ajax():
 			return JsonResponse(status=200, data={'success': False, 'message': "No results found."})
@@ -25,7 +26,7 @@ def search(request):
 	if request.is_ajax(): # Search bar
 		# Show weighted searches
 		total_results = 10
-		movies = Movie.objects.filter(name__icontains = query).order_by('-mean_rating')[:total_results]
+		movies = Movie.objects.filter(name__icontains = query).order_by('-popularity')[:total_results]
 		result = []
 		for movie in movies:
 			result.append({'name': movie.__str__(), 'url': movie.get_absolute_url()})
@@ -33,15 +34,15 @@ def search(request):
 	else:
 		# Show more relevant searches
 		total_results = 20
-		movie_startswith = Movie.objects.filter(name__istartswith = query).order_by('-mean_rating')[:int(total_results * 0.6)]
+		movie_startswith = Movie.objects.filter(name__istartswith = query).order_by('-popularity')[:int(total_results * 0.6)]
 		remaining_results = total_results - movie_startswith.count()
 		movie_contains = Movie.objects.filter(name__icontains = query).\
 						 exclude(movielensID__in=[m['movielensID'] for m in movie_startswith.values('movielensID')]).\
-						 order_by('-mean_rating')[:remaining_results]
+						 order_by('-popularity')[:remaining_results]
 		from itertools import chain
 		movies = sorted(
 				chain(list(movie_startswith), list(movie_contains)),
-				key=lambda instance: instance.mean_rating,
+				key=lambda instance: instance.popularity,
 				reverse=True)
 		return render(request, 'search_results.html', {'movies': movies})
 
@@ -58,7 +59,7 @@ def movie(request, uuid):
 		csv = str(movie.movielensID) + ','
 		Movie.objects.filter(pk=previous).update(outbounds = F('outbounds') + csv)
 	
-	recommendations = movie.get_recommendations(5)
+	recommendations = movie.get_recommendations(7)
 	return render(request, 'movie.html', {'movie': movie, 'recommendations': recommendations})
 
 @require_POST

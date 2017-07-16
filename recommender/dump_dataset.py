@@ -94,7 +94,7 @@ for index in merged_grouped.indices:
 		for genre in genres:
 			movie.genres.add(genres_q.get(name=genre))
 	# # #
-	
+		''' Don't need to dump ratings into db
 # Creating Ratings
 		ratings = group['rating'].values
 		user_ids = group['userId'].values
@@ -105,6 +105,7 @@ for index in merged_grouped.indices:
 			print(e)
 			print(group['title'].values[0])
 # # #
+		'''
 	except Exception as e:
 		print(e)
 		print(group['title'].values[0])
