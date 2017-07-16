@@ -10,8 +10,7 @@ from decimal import Decimal
 
 year_pattern = re.compile(r'\s*\((\d{4})\)\s*')
 
-DATASET_DIR = '../ml-latest-small/'
-#DATASET_DIR = '/Users/Pratulya/Desktop/tcs/ml-latest-small/'
+DATASET_DIR = '../datasets/'
 
 print('--------------- READING DATASETS ----------------')
 
