@@ -33,7 +33,7 @@
         <div class="row">
             <form class="col s12 m10 offset-m1 l8 offset-l2" action="{% url 'search' %}" method="GET" id="search-form" style="position: relative">
             <div class="input-field">
-              <input id="search" name="query" type="search" placeholder="Search Movies..." required>
+              <input id="search" name="query" type="search" autocomplete="off" placeholder="Search Movies..." required>
               <label class="label-icon" for="search"><i class="fa fa-2x fa-search" aria-hidden="true"></i></label>
             </div>
 			<div class="col s12 teal-text flow-text grey lighten-5" style="z-index: 1; position: absolute; max-height: 450px; overflow-y: scroll; display: none;" id="search-results"></div>
