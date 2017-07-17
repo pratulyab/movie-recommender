@@ -1,8 +1,44 @@
 {% extends 'base.html' %}
 {% block title %}{{ movie.display_name }} | Movie Recommender{% endblock %}
 
-
 {% block header %}
+
+<style>
+@media only screen 
+and (min-width : 300px)
+and (max-width : 500px) {
+
+   h2 {
+    font-size: 20px;
+   }
+
+   h3 {
+    font-size: 20px;
+   }
+
+   a 
+   {
+   	font-size: 20px;
+   }
+}
+
+    @media only screen 
+    and (min-width : 500px)
+    and (max-width : 800px) {
+
+       h2 {
+        font-size: 30px;
+       }
+
+    }
+
+li{
+	margin-top:25px;
+	margin-bottom: 25px;
+}
+
+</style>
+
 <nav>
 	<div class="nav-wrapper row blue-grey darken-4">
 	<a href="/" class="brand-logo left" style="margin-left:10px;"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
@@ -20,20 +56,39 @@
 
 
 {% block content %}
-<div class="row ">
-	<div class="col s10 offset-s1" id="movie-data">
+<div class="row">
+<div class="col s1 m1 l2"  style="margin-bottom:2vw;"></div>
+<div class="blue lighten-4 purple-text text-darken-3 flow-text col s10 m10 l8" style="margin-top:10px;"><h2 class="center-align">{{ movie.display_name }}</h2></span>
+</div>
+<div class="row">
+	<div class="col s10 offset-s1" class="movie-data">
 		<ul class="flow-text">
-			<li><b>Movie: </b><span class="pink lighten-5 purple-text text-darken-3" style="font-size:32px">{{ movie.display_name }}</span></li>
+			<li></li>
 			<li><b>Genres: </b>{{ movie.genres.all|join:", " }}</li>
 			<li><b>Rating: </b> {{ movie.mean_rating|floatformat }} ({{ movie.total_ratings }} users)</li>
-			<li><a target="_blank" href="{{ movie.imdb_url }}">Internet Movie Database&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></li>
+			<!-- <li><a target="_blank" href="{{ movie.imdb_url }}">Internet Movie Database&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></li>
 			<li><a target="_blank" href="{{ movie.tmdb_url }}">The Movie Database&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></li>
-			<li><a target="_blank" href="{{ movie.movielens_url }}">Movielens&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></li>
+			<li><a target="_blank" href="{{ movie.movielens_url }}">Movielens&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></li> -->
 		</ul>
+	</div>
+</div>
+	<div class = "row" style="margin-bottom: 4vw; margin-top: 2vw;">
+		<div class="col s10 m4 l2 offset-s1 offset-l2">
+			<h4><a target="_blank" href="{{ movie.imdb_url }}" class="center-align">IMDb&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></h4>
+		</div>
+		
+		<div class="col s10 m4 l3 offset-s1 offset-l1">
+			<h4><a target="_blank" href="{{ movie.tmdb_url }}" class="center-align">The Movie Database&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></h4>
+		</div>
+		
+		<div class="col s10 m4 l3 offset-s1 offset-l1">
+			<h4><a target="_blank" href="{{ movie.movielens_url }}" class="center-align">Movielens&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></li></h4>
+		</div>
+
 	</div>
 	<div class="col s12 divider"></div>
 	<div class="col s10 offset-s1" id="recommendations">
-		<h4 class="teal lighten-5 center blue-text text-darken-4">You Might Also Like (Recommendations)</h4>
+		<h3 class="blue-grey darken-4 center white-text text-darken-4">You Might Also Like</h3>
 		{% for recommended_movie in recommendations %}
 			<h4 class="flow-text">{{ forloop.counter }}) <a href="{{ recommended_movie.get_absolute_url }}">{{ recommended_movie.display_name}}</a></h4>
 		{% empty %}
