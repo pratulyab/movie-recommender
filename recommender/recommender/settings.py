@@ -85,7 +85,7 @@ DATABASES = {
         'NAME': 'movie',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'password',  #Change Password according to password of MySQL server of your system
         'PORT': 3306,
         'OPTIONS': {'charset': 'utf8mb4'}
     }
