@@ -58,7 +58,7 @@ li{
 {% block content %}
 <div class="row">
 <div class="col s1 m1 l2"  style="margin-bottom:2vw;"></div>
-<div class="blue lighten-4 purple-text text-darken-3 flow-text col s10 m10 l8" style="margin-top:10px;"><h2 class="center-align">{{ movie.display_name }}</h2></span>
+<div class="indigo darken-4 white-text text-darken-3 flow-text col s10 m10 l8" style="margin-top:10px;"><h2 class="center-align">{{ movie.display_name }}</h2></span>
 </div>
 <div class="row">
 	<div class="col s10 offset-s1" class="movie-data">
@@ -74,26 +74,29 @@ li{
 </div>
 	<div class = "row" style="margin-bottom: 4vw; margin-top: 2vw;">
 		<div class="col s10 m4 l2 offset-s1 offset-l2">
-			<h4><a target="_blank" href="{{ movie.imdb_url }}" class="center-align">IMDb&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></h4>
+			<h4><a class = "indigo-text text-darken-4" target="_blank" href="{{ movie.imdb_url }}" class="center-align">IMDb&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></h4>
 		</div>
 		
 		<div class="col s10 m4 l3 offset-s1 offset-l1">
-			<h4><a target="_blank" href="{{ movie.tmdb_url }}" class="center-align">The Movie Database&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></h4>
+			<h4><a class = "indigo-text text-darken-4" target="_blank" href="{{ movie.tmdb_url }}" class="center-align">The Movie Database&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></h4>
 		</div>
 		
 		<div class="col s10 m4 l3 offset-s1 offset-l1">
-			<h4><a target="_blank" href="{{ movie.movielens_url }}" class="center-align">Movielens&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></li></h4>
+			<h4><a class = "indigo-text text-darken-4" target="_blank" href="{{ movie.movielens_url }}" class="center-align">Movielens&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></li></h4>
 		</div>
 
 	</div>
 	<div class="col s12 divider"></div>
 	<div class="col s10 offset-s1" id="recommendations">
-		<h3 class="blue-grey darken-4 center white-text text-darken-4">You Might Also Like</h3>
+		<h3 class="col s10 m10 l6 offset-s1 offset-m1 offset-l3 blue-grey darken-4 center white-text text-darken-4">You Might Also Like</h3>
+		<div class="col s10 m10 l6 offset-s1 offset-m1 offset-l3 grey lighten-4" style="opacity: 0.6">
+	
 		{% for recommended_movie in recommendations %}
-			<h4 class="flow-text">{{ forloop.counter }}) <a href="{{ recommended_movie.get_absolute_url }}">{{ recommended_movie.display_name}}</a></h4>
+			<h4 class="flow-text black-text text-darken-4">{{ forloop.counter }}) <a class="flow-text black-text text-darken-4" href="{{ recommended_movie.get_absolute_url }}">{{ recommended_movie.display_name}}</a></h4>
 		{% empty %}
 			<h5 class="flow-text blue-text">Sorry, we have no recommendations to show for {{ movie.display_name }}<i class="fa fa-frown-o"></i>. Try with some other movie.</h5>
 		{% endfor %}
+		</div>
 	</div>
 </div>
 {% endblock %}

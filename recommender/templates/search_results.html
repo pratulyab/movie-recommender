@@ -38,11 +38,11 @@
 			<tbody>
 				{% for movie in movies %}
 				<tr>
-					<td class="SFTest">{{ forloop.counter }}.</td>
-					<td class="SFTest"><a href="{{ movie.get_absolute_url }}">{{ movie.display_name }}<!--&emsp;<i class="fa fa-link"></i>--></a></td>
-					<td class="SFTest">{{ movie.genres.all|join:", " }}</td>
-					<td class="SFTest">{{ movie.mean_rating|floatformat }}</td>
-					<td class="SFTest"><a href="{{ movie.get_absolute_url }}"><i class="fa fa-link fa-2x" aria-hidden="true"></a></td>
+					<td class="SFTest" style="font-weight: 600;">{{ forloop.counter }}.</td>
+					<td class="SFTest" style="font-weight: 600;"><a href="{{ movie.get_absolute_url }}">{{ movie.display_name }}<!--&emsp;<i class="fa fa-link"></i>--></a></td>
+					<td class="SFTest" style="font-weight: 600;">{{ movie.genres.all|join:", " }}</td>
+					<td class="SFTest" style="font-weight: 600;">{{ movie.mean_rating|floatformat }}</td>
+					<td class="SFTest" style="font-weight: 600;"><a href="{{ movie.get_absolute_url }}"><i class="fa fa-link fa-2x" aria-hidden="true"></a></td>
 				</tr>
 				{% endfor %}
 			</tbody>

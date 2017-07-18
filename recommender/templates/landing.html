@@ -5,6 +5,39 @@
 <style>
 	.indicator {background-color: #40c4ff !important}
 	.tabs .tab a:hover, .tabs .tab a.active, .tabs .tab a {color: #0d47a1 !important; font-size: 16px;}
+
+
+	@media only screen 
+	and (min-width : 300px)
+	and (max-width : 500px) {
+
+	    h2 {
+	    font-size: 20px;
+	    font-weight: 500;
+	   }
+
+	   h3 {
+	    font-size: 20px;
+	   }
+
+	   a 
+	   {
+	   	font-size: 20px;
+	   }
+	}
+
+	    @media only screen 
+	    and (min-width : 600px)
+	    and (max-width : 1500px)
+	     {
+
+	     h2 {
+	        font-size: 50px;
+	        font-weight: 600;
+	       }
+
+	    }
+
 </style>
 {% endblock %}
 
@@ -28,29 +61,30 @@
         <li class="tab col s3 m4 l6"><a href="#GSearch" style="font-size: 1rem">Genre Based</a></li>
         </ul>
     </div>
-    <div id="nameSearch" class="col s12" style="margin-top:50px">
-
-        <div class="row">
-            <form class="col s12 m10 offset-m1 l8 offset-l2" action="{% url 'search' %}" method="GET" id="search-form" style="position: relative">
+    <div id="nameSearch" class="col s10 m10 l8 offset-l2 offset-s1 offset-m1" style="margin-top:50px;background-color: white;opacity: 0.6;" >
+            <form class="col s12 m10 offset-m1 l8 offset-l2" action="{% url 'search' %}" method="GET" id="search-form" style="position: relative;opacity: 0.6;">
             <div class="input-field">
               <input id="search" name="query" type="search" autocomplete="off" placeholder="Search Movies..." required>
               <label class="label-icon" for="search"><i class="fa fa-2x fa-search" aria-hidden="true"></i></label>
             </div>
 			<div class="col s12 teal-text flow-text grey lighten-5" style="z-index: 1; position: absolute; max-height: 450px; overflow-y: scroll; display: none;" id="search-results"></div>
           </form>
-        </div>
     </div>
-    
+    </div>
   
   <div id="GSearch" class="col s12" style="margin-top:50px;">
     
-    <div class="col s10 offset-s1" id="genre-form-div">
-    <h5 class="center-align grey lighten-5 flow-text">Genre Based Recommendations</h5>
-    <form class="col s12" id="genre-form" action="{% url 'genre' %}" method="POST">
+    <div class="row" style='opacity: 0.6'>
+    <div class="col s11 m11 l8 offset-l2 offset-m1 offset-s1" id="genre-form-div">
+    <h2 class="center-align black-text text-darken-4" id="gbr">Genre Based Recommendations</h2>
+    <form class="col s11 m11 l8 offset-l2 offset-m1 offset-s1" id="genre-form" action="{% url 'genre' %}" method="POST">
       {% csrf_token %}
       {{ genre_form.as_p }}
-      <div class="row">
-        <button style="background-color: #3785c7" class="col s10 offset-s1 btn btn-waves" type="submit">Recommend Movies <i class="fa fa-smile-o"></i></button>
+
+    </div>
+    </div>
+      <div class="row" >
+        <button style="background-color: #3785c7;" class="col s10 offset-s1 btn btn-waves" type="submit">Recommend Movies <i class="fa fa-smile-o"></i></button>
       </div>
     </form>
       <div class="col s10 offset-s1" id="genre-preloader"></div>
@@ -58,7 +92,7 @@
     </div>
   </div>
 </div>
-    
+</div>    
 
 
 {% endblock %}

@@ -1,10 +1,11 @@
-
 <div class="col s12 divider"></div>
-<div clas = 'row'>
-<h2 class="pink lighten-5 flow-text center-align purple-text text-darken-3">Recommendations</h2>
-</div>
+<div class = 'row'>
+<div class="col s10 m10 l6 offset-s1 offset-m1 offset-l3 grey lighten-4" style="opacity: 0.6">
+<h1 class="lighten-5 flow-text center-align black-text text-darken-3" style="font-weight: 600;">We Recommend</h1>
+
 {% for recommended_movie in recommendations %}
-	<ul class="collection">
-	<h5 class="flow-text"> <li class="collection-item">{{forloop.counter }}) <a href="{{ recommended_movie.get_absolute_url }}">{{ recommended_movie.display_name}}</a></li></h5>
-	</ul>
+		<ul style="list-style: none;">
+		<h5 class="flow-text black-text text-darken-3" style="font-weight: 600;"> <li>{{forloop.counter }}) <a class="flow-text black-text text-darken-4" style="font-weight: 600;" href="{{ recommended_movie.get_absolute_url }}">{{ recommended_movie.display_name}}</a></li></h5>
+		</ul>
 {% endfor %}
+</div>
