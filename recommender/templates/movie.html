@@ -41,7 +41,7 @@ li{
 
 <nav>
 	<div class="nav-wrapper row blue-grey darken-4">
-	<a href="/" class="brand-logo left" style="margin-left:10px;"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
+	<a href="/" class="yellow-text brand-logo left" style="margin-left:10px;"><i class="fa fa-video-camera" aria-hidden="true"></i></a>
 		<form class="col s12 m10 offset-m1 l8 offset-l2" action="{% url 'search' %}" method="GET" id="search-form" style="position: relative">
 			<div class="input-field">
 				<input id="search" name="query" type="search" autocomplete="off" placeholder="Search Movies..." required>
@@ -58,14 +58,14 @@ li{
 {% block content %}
 <div class="row">
 <div class="col s1 m1 l2"  style="margin-bottom:2vw;"></div>
-<div class="indigo darken-4 white-text text-darken-3 flow-text col s10 m10 l8" style="margin-top:10px;"><h2 class="center-align">{{ movie.display_name }}</h2></span>
+<div class="indigo darken-4 white-text text-darken-3 flow-text col s10 m10 l8" style="margin-top:10px;border-radius: 10px; "><h2 class="center-align">{{ movie.display_name }}</h2></span>
 </div>
 <div class="row">
 	<div class="col s10 offset-s1" class="movie-data">
 		<ul class="flow-text">
 			<li></li>
 			<li><b>Genres: </b>{{ movie.genres.all|join:", " }}</li>
-			<li><b>Rating: </b> {{ movie.mean_rating|floatformat }} ({{ movie.total_ratings }} users)</li>
+			<li><b><i class="small material-icons">star </i>:</b> {{ movie.mean_rating|floatformat }} ({{ movie.total_ratings }} users)</li>
 			<!-- <li><a target="_blank" href="{{ movie.imdb_url }}">Internet Movie Database&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></li>
 			<li><a target="_blank" href="{{ movie.tmdb_url }}">The Movie Database&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></li>
 			<li><a target="_blank" href="{{ movie.movielens_url }}">Movielens&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></a></li> -->
@@ -86,7 +86,7 @@ li{
 		</div>
 
 	</div>
-	<div class="col s12 divider"></div>
+	<div class="col s12 divider grey lighten-5"></div>
 	<div class="col s10 offset-s1" id="recommendations">
 		<h3 class="col s10 m10 l6 offset-s1 offset-m1 offset-l3 blue-grey darken-4 center white-text text-darken-4">You Might Also Like</h3>
 		<div class="col s10 m10 l6 offset-s1 offset-m1 offset-l3 grey lighten-4" style="opacity: 0.6">
