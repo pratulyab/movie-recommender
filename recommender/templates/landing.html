@@ -61,10 +61,10 @@
         <li class="tab col s3 m4 l6"><a class="active" href="#GSearch" style="font-size: 1rem">Genre Based</a></li>
         </ul>
     </div>
-    <div id="nameSearch" style="margin-top:50px;" class="col s11 m11 l6 offset-l3 offset-m1 offset-s1" > <h2 class="indigo darken-4 center-align white-text text-darken-3" id="gbr" style="opacity: 0.8;border-radius: 25px;margin-bottom: 25px;">Search by name</h2>
+    <div id="nameSearch" style="margin-top:50px;" class="col s10 m10 l6 offset-l3 offset-m1 offset-s1" > <h2 class="indigo darken-4 center-align white-text text-darken-3" id="gbr" style="opacity: 0.8;border-radius: 25px;margin-bottom: 25px;">Search by name</h2>
     <div class="col s10 m10 l10 offset-l1 offset-s1 offset-m1" style="background-color: white;opacity: 0.8;border-radius: 25px;margin-top: 24px;" >
     	
-            <form class="black-text text-darken-4 col s12 m10 offset-m1 l10 offset-l1" action="{% url 'search' %}" method="GET" id="search-form" style="position: relative;">
+            <form class="black-text text-darken-4 col s10 m10 offset-m1 l10 offset-l1 offset-s1" action="{% url 'search' %}" method="GET" id="search-form" style="position: relative;">
             <div class="input-field">
               <input id="search" name="query" type="search" autocomplete="off" placeholder="Search Movies..." required>
               <label class="label-icon" for="search"><i class="fa fa-2x fa-search" aria-hidden="true"></i></label>
@@ -77,9 +77,9 @@
   <div id="GSearch" class="col s12" style="margin-top:50px;">
     
     <div class="row">
-    <div class="col s11 m11 l6 offset-l3 offset-m1 offset-s1" id="genre-form-div">
+    <div class="col s11 m10 l6 offset-l3 offset-m1 offset-s1" id="genre-form-div">
     <h2 class="indigo darken-4 center-align white-text text-darken-3" id="gbr" style="opacity: 0.8;border-radius: 25px;">Genre Based Recommendations</h2>
-    <form class="blue lighten-5 col s11 m11 l8 offset-l2 offset-m1 offset-s1" id="genre-form" action="{% url 'genre' %}" method="POST">
+    <form class="blue lighten-5 col s10 m10 l8 offset-l2 offset-m1 offset-s1" id="genre-form" action="{% url 'genre' %}" method="POST">
       {% csrf_token %}
       {{ genre_form.as_p }}
 
